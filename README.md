@@ -15,3 +15,11 @@ On Linux, MacOS
 ```
 source build.sh
 ```
+
+## Usage
+Move the output `envUpdater` to a place where it is easily accessible, or add it to your system PATH variable.
+
+In your project directory run
+```sh
+envUpdater
+```
