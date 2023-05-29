@@ -2,7 +2,6 @@ from io import TextIOWrapper
 import os
 import re
 
-
 class EnvParser:
     filename = ".env"
     exampleFile = ".env.example"
@@ -17,8 +16,21 @@ class EnvParser:
         return None
 
     def getKeys(self, data):
-        regex_pattern = r"(.*)="
-        return re.findall(regex_pattern, data)
+        keys = []
+        regex_pattern = r"^([a-zA-Z_]*)="
+        lines = data.split("\n")
+        
+        for line in lines:
+            key = line.strip()
+            if key != "":
+                match = re.match(regex_pattern, key)
+                print(match)
+                if match is not None:
+                    keys.append(match.group(0))
+        
+        print(keys)
+        return keys
+        # return re.findall(regex_pattern, data)
 
     def parseEnvs(self):
         file = self.loadFile(self.filename)
@@ -45,9 +57,9 @@ class EnvParser:
 
         for key in envKeys:
             if key not in exampleKeys:
-                print(f"{key} - absent")
+                # print(f"{key} - absent")
                 diffKeys.append(key)
 
         with open(self.exampleFile, 'a+') as file:
             for key in diffKeys:
-                file.write(f"{key}=\n")
+                file.write(f"{key}\n")
