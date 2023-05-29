@@ -24,13 +24,10 @@ class EnvParser:
             key = line.strip()
             if key != "":
                 match = re.match(regex_pattern, key)
-                print(match)
                 if match is not None:
                     keys.append(match.group(0))
         
-        print(keys)
         return keys
-        # return re.findall(regex_pattern, data)
 
     def parseEnvs(self):
         file = self.loadFile(self.filename)
@@ -51,9 +48,6 @@ class EnvParser:
         exampleKeys = self.parseExampleEnvs()
 
         diffKeys = []
-
-        # print(exampleKeys)
-        # return
 
         for key in envKeys:
             if key not in exampleKeys:
